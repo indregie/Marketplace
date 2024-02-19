@@ -18,18 +18,6 @@ public class OrderService
         _userService = userService;
     }
 
-    //public async Task<GetItemsResponse> Get()
-    //{
-    //    IEnumerable<ItemEntity> result = await _itemRepository.Get();
-
-    //    GetItemsResponse response = new GetItemsResponse()
-    //    {
-    //        Items = result.Select(m => new InsertItemResponse { Id = m.Id, Name = m.Name })
-    //        .ToList()
-    //    };
-    //    return response;
-    //}
-
     public async Task<InsertOrderResponse> Insert(InsertOrderRequest request)
     {
         await _itemService.Get(request.ItemId);
@@ -54,17 +42,37 @@ public class OrderService
         return response;
     }
 
-    //public async Task<InsertItemResponse> Get(int id)
-    //{
-    //    ItemEntity? item = await _itemRepository.Get(id)
-    //       ?? throw new ItemNotFoundException();
+    public async Task<OrderPaidResponse> SetAsPaid(int id)
+    {
+        await Get(id);
 
-    //    InsertItemResponse response = new InsertItemResponse()
-    //    {
-    //        Id = item.Id,
-    //        Name = item.Name
-    //    };
+        OrderEntity result = await _orderRepository.SetAsPaid(id, DateTime.Now);
 
-    //    return response;
-    //}
+        OrderPaidResponse response = new OrderPaidResponse()
+        {
+            Id = result.Id,
+            ItemId = result.ItemId,
+            UserId = result.UserId,
+            CreatedAt = result.CreatedAt,
+            PaidAt = result.PaidAt
+        };
+
+        return response;
+    }
+
+    public async Task<InsertOrderResponse> Get(int id)
+    {
+        OrderEntity? order = await _orderRepository.Get(id)
+           ?? throw new OrderNotFoundException();
+
+        InsertOrderResponse response = new InsertOrderResponse()
+        {
+            Id = order.Id,
+            ItemId = order.ItemId,
+            UserId = order.UserId,
+            CreatedAt = order.CreatedAt
+        };
+
+        return response;
+    }
 }

@@ -37,6 +37,9 @@ public class ErrorHandlerMiddleware
                 case UserNotFoundException e:
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
+                case OrderNotFoundException e:
+                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    break;
                 case InvalidNameException e:
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;

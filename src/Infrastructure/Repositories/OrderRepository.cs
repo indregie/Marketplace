@@ -40,11 +40,29 @@ public class OrderRepository : IOrderRepository
     //    return await _connection.QueryAsync<ItemEntity>(sql);
     //}
 
-    //public async Task<ItemEntity?> Get(int id)
-    //{
-    //    string sql = @"SELECT id as Id, name as Name FROM items WHERE id = @id";
+    public async Task<OrderEntity?> Get(int id)
+    {
+        string sql = @"SELECT id as Id, item_id as ItemId, user_id as UserId, created_at as CreatedAt
+                        FROM orders WHERE id = @id";
 
-    //    return await _connection.QuerySingleOrDefaultAsync<ItemEntity>(sql, new { id });
-    //}
+        return await _connection.QuerySingleOrDefaultAsync<OrderEntity>(sql, new { id });
+    }
+
+    public async Task<OrderEntity> SetAsPaid(int id, DateTime date)
+    {
+        string sql = @"UPDATE orders
+                        SET paid_at = @Date
+                        WHERE id = @Id
+                        RETURNING id as Id, item_id as ItemId, user_id as UserId,
+                        created_at as CreatedAt";
+
+        var queryObject = new
+        {
+            Id = id,
+            Date = date
+        };
+
+        return await _connection.QuerySingleAsync<OrderEntity>(sql, queryObject);
+    }
 }
 
