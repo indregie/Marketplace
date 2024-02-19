@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Dtos.Response;
+using Domain.Entities;
 
 namespace Domain.Interfaces;
 

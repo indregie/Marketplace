@@ -64,7 +64,9 @@ public class OrderService
     public async Task<OrderCompletedResponse> SetAsCompleted(int id)
     {
         var order = await Get(id);
-        _ = order.PaidAt ?? throw new UnpaidOrderException();
+
+        _ = order.PaidAt 
+            ?? throw new UnpaidOrderException();
 
         OrderEntity? result = await _orderRepository.SetAsCompleted(id, DateTime.Now)
             ?? throw new CompletionWriteException();
@@ -99,4 +101,20 @@ public class OrderService
         return response;
     }
 
+    public async Task<IEnumerable<UserOrdersResponse>> GetOrders(int userId)
+    {
+        await _userService.Get(userId);
+
+        IEnumerable<OrderEntity> result = await _orderRepository.GetOrders(userId);
+        IEnumerable<UserOrdersResponse> response = result.Select(orderEntity => new UserOrdersResponse()
+        {
+            Id = orderEntity.Id,
+            ItemId = orderEntity.ItemId,
+            CreatedAt = orderEntity.CreatedAt,
+            PaidAt = orderEntity.PaidAt,
+            CompletedAt = orderEntity.CompletedAt
+        });
+
+        return response;
+    }
 }

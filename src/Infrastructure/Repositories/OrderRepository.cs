@@ -33,13 +33,6 @@ public class OrderRepository : IOrderRepository
         return await _connection.QuerySingleAsync<OrderEntity>(sql, queryObject);
     }
 
-    //public async Task<IEnumerable<ItemEntity>> Get()
-    //{
-    //    string sql = @"SELECT id as Id, name as Name FROM items";
-
-    //    return await _connection.QueryAsync<ItemEntity>(sql);
-    //}
-
     public async Task<OrderEntity?> Get(int id)
     {
         string sql = @"SELECT id as Id, item_id as ItemId, user_id as UserId, created_at as CreatedAt, paid_at as PaidAt
@@ -80,6 +73,14 @@ public class OrderRepository : IOrderRepository
         };
 
         return await _connection.QuerySingleOrDefaultAsync<OrderEntity>(sql, queryObject);
+    }
+
+    public async Task<IEnumerable<OrderEntity>> GetOrders(int userId)
+    {
+        string sql = @"SELECT id as Id, item_id as ItemId, created_at as CreatedAt, paid_at as PaidAt, completed_at as CompletedAt
+                        FROM orders WHERE user_id = @userId";
+
+        return await _connection.QueryAsync<OrderEntity>(sql, new { userId });
     }
 }
 

@@ -8,4 +8,5 @@ public interface IOrderRepository
     Task<OrderEntity?> Get(int id);
     Task<OrderEntity?> SetAsPaid(int id, DateTime date);
     Task<OrderEntity?> SetAsCompleted(int id, DateTime date);
+    Task<IEnumerable<OrderEntity>> GetOrders(int userId);
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Domain.Dtos.Response;
 using Domain.Entities;
 using Infrastructure.Errors;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,4 @@ public class UserController : ControllerBase
     {
         return Ok(await _userService.Get());
     }
-
-    //GET /customers/{id}/orders
 }

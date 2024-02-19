@@ -23,20 +23,6 @@ public class OrderController : ControllerBase
     }
 
     /// <summary>
-    /// Retrieve a list of all orders with all statuses from database.
-    /// </summary>
-    /// <returns>List of users.</returns>
-    /// 
-    //[HttpGet("orders")]
-    //[ProducesResponseType(typeof(IEnumerable<UserEntity>), StatusCodes.Status200OK)]
-    //[ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    //[ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    //public async Task<IActionResult> Get()
-    //{
-    //    return Ok(await _userService.Get());
-    //}
-
-    /// <summary>
     ///  Add a new order.
     /// </summary>
     /// <returns> New order created. </returns>
@@ -78,5 +64,18 @@ public class OrderController : ControllerBase
         return Ok(await _orderService.SetAsCompleted(id));
     }
 
+    /// <summary>
+    /// Retrieve a list of orders for a specific user.
+    /// </summary>
+    /// <returns>List of orders.</returns>
+    /// 
+    [HttpGet("orders")]
+    [ProducesResponseType(typeof(IEnumerable<UserOrdersResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Get([FromQuery]int userId)
+    {
+        return Ok(await _orderService.GetOrders(userId));
+    }
 }
 
