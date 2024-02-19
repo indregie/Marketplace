@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  web:
+    image: ${DOCKER_REGISTRY-}web
+    build:
+      context: .
+      dockerfile: src/Web/Dockerfile
+    ports:
+      - "2999:8080"
+      - "2998:8081"
+    # networks:
+    #   - my-network
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: marketplace
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5437:5432"
+    # networks:
+    #   - my-network
+  liquibase:
+    image: liquibase/liquibase:latest
+    volumes:
+      - ./migration:/liquibase/migration
+    depends_on:
+      - postgres
+    command:
+      - --changeLogFile=/migration/dbchangelog.yaml
+      - --url=jdbc:postgresql://postgres:5432/marketplace
+      - --username=admin
+      - --password=admin
+      - update
+#     networks:
+#       - my-network
+
+# networks:
+#   my-network:
