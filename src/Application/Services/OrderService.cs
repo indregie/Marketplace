@@ -1,4 +1,5 @@
-﻿using Domain.Dtos.Request;
+﻿using Application.Interfaces;
+using Domain.Dtos.Request;
 using Domain.Dtos.Response;
 using Domain.Entities;
 using Domain.Exceptions;
@@ -6,12 +7,12 @@ using Domain.Interfaces;
 
 namespace Application.Services;
 
-public class OrderService
+public class OrderService : IOrderService
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly ItemService _itemService;
-    private readonly UserService _userService;
-    public OrderService(IOrderRepository orderRepository, ItemService itemService, UserService userService)
+    private readonly IItemService _itemService;
+    private readonly IUserService _userService;
+    public OrderService(IOrderRepository orderRepository, IItemService itemService, IUserService userService)
     {
         _orderRepository = orderRepository;
         _itemService = itemService;

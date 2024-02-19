@@ -1,6 +1,6 @@
 namespace UnitTests.Services;
 
-public class RateServiceTests
+public class ItemServiceTests
 {
     //private readonly Mock<IRateRepository> _rateRepositoryMock;
     //private readonly Mock<IExchangeRatesClient> _rateClientMock;

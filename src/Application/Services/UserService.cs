@@ -1,10 +1,11 @@
-﻿using Domain.Entities;
+﻿using Application.Interfaces;
+using Domain.Entities;
 using Domain.Exceptions;
 using Domain.Interfaces;
 
 namespace Application.Services;
 
-public class UserService
+public class UserService : IUserService
 {
     private readonly IUserClient _client;
     public UserService(IUserClient client)

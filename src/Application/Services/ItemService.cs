@@ -1,4 +1,5 @@
-﻿using Domain.Dtos.Request;
+﻿using Application.Interfaces;
+using Domain.Dtos.Request;
 using Domain.Dtos.Response;
 using Domain.Entities;
 using Domain.Exceptions;
@@ -6,7 +7,7 @@ using Domain.Interfaces;
 
 namespace Application.Services;
 
-public class ItemService
+public class ItemService : IItemService
 {
     private readonly IItemRepository _itemRepository;
 
