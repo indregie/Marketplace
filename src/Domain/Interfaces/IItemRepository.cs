@@ -6,4 +6,5 @@ public interface IItemRepository
 {
     Task<IEnumerable<ItemEntity>> Get();
     Task<ItemEntity> Insert(ItemEntity item);
+    Task<ItemEntity?> Get(int id);
 }

@@ -50,4 +50,17 @@ public class ItemService
         return response;
     }
 
+    public async Task<InsertItemResponse> Get(int id)
+    {
+        ItemEntity? item = await _itemRepository.Get(id)
+           ?? throw new ItemNotFoundException();
+
+        InsertItemResponse response = new InsertItemResponse()
+        {
+            Id = item.Id,
+            Name = item.Name
+        };
+
+        return response;
+    }
 }

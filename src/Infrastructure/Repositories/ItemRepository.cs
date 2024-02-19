@@ -30,5 +30,11 @@ public class ItemRepository : IItemRepository
         return await _connection.QueryAsync<ItemEntity>(sql);
     }
 
+    public async Task<ItemEntity?> Get(int id)
+    {
+        string sql = @"SELECT id as Id, name as Name FROM items WHERE id = @id";
+
+        return await _connection.QuerySingleOrDefaultAsync<ItemEntity>(sql, new { id });
+    }
 }
 

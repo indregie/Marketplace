@@ -10,5 +10,6 @@ public static class DependencyInjection
     {
         services.AddScoped<ItemService>();
         services.AddScoped<UserService>();
+        services.AddScoped<OrderService>();
     }
 }

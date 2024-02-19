@@ -13,13 +13,13 @@ namespace Web.Controllers;
 [ApiController]
 public class OrderController : ControllerBase
 {
-    private UserService _userService;
+    private OrderService _orderService;
     /// <summary>
     /// Controller for managing marketplace users.
     /// </summary>
-    public OrderController(UserService userService)
+    public OrderController(OrderService orderService)
     {
-        _userService = userService;
+        _orderService = orderService;
     }
 
     /// <summary>
@@ -27,14 +27,14 @@ public class OrderController : ControllerBase
     /// </summary>
     /// <returns>List of users.</returns>
     /// 
-    [HttpGet("orders")]
-    [ProducesResponseType(typeof(IEnumerable<UserEntity>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Get()
-    {
-        return Ok(await _userService.Get());
-    }
+    //[HttpGet("orders")]
+    //[ProducesResponseType(typeof(IEnumerable<UserEntity>), StatusCodes.Status200OK)]
+    //[ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    //public async Task<IActionResult> Get()
+    //{
+    //    return Ok(await _userService.Get());
+    //}
 
     /// <summary>
     ///  Add a new order.
@@ -42,11 +42,12 @@ public class OrderController : ControllerBase
     /// <returns> New order created. </returns>
     /// 
     [HttpPost("orders")]
-    [ProducesResponseType(typeof(IEnumerable<InsertItemResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<InsertOrderResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Insert(InsertItemRequest request)
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Insert(InsertOrderRequest request)
     {
-        return Created("/v1/items", await _itemService.Insert(request));
+        return Created("/v1/orders", await _orderService.Insert(request));
     }
 
 }

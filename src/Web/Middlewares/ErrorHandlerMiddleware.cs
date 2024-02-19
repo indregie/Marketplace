@@ -31,7 +31,10 @@ public class ErrorHandlerMiddleware
 
             switch (error)
             {
-                case MovieNotFoundException e:
+                case ItemNotFoundException e:
+                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    break;
+                case UserNotFoundException e:
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
                 case InvalidNameException e:
