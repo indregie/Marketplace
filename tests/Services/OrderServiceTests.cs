@@ -5,6 +5,7 @@ using AutoFixture.Xunit2;
 using Domain.Dtos.Request;
 using Domain.Dtos.Response;
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Interfaces;
 using FluentAssertions;
 using Moq;
@@ -62,5 +63,22 @@ public class OrderServiceTests
         result.Id.Should().NotBe(default(int));
         result.ItemId.Should().Be(expectedItemResponse.Id);
         result.UserId.Should().Be(expectedUserEntity.Id);
+    }
+
+    [Fact]
+    public async Task Insert_WhenItemServiceThrowsItemNotFoundException_ReturnsErrorResponse()
+    {
+        // Arrange
+        _itemServiceMock.Setup(x => x.Get(It.IsAny<int>()))
+            .ThrowsAsync(new ItemNotFoundException());
+
+        var request = new InsertOrderRequest
+        {
+            ItemId = _fixture.Create<int>(),
+            UserId = _fixture.Create<int>()
+        };
+
+        // Act & Assert
+        await Assert.ThrowsAsync<ItemNotFoundException>(() => _orderService.Insert(request));
     }
 }
