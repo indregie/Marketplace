@@ -46,6 +46,12 @@ public class ErrorHandlerMiddleware
                 case PaymentWriteException e:
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
+                case CompletionWriteException e:
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
+                case UnpaidOrderException e:
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
                 default:
                     // unhandled error
                     _logger.LogError(error, error.Message);

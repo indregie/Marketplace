@@ -42,7 +42,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task<OrderEntity?> Get(int id)
     {
-        string sql = @"SELECT id as Id, item_id as ItemId, user_id as UserId, created_at as CreatedAt
+        string sql = @"SELECT id as Id, item_id as ItemId, user_id as UserId, created_at as CreatedAt, paid_at as PaidAt
                         FROM orders WHERE id = @id";
 
         return await _connection.QuerySingleOrDefaultAsync<OrderEntity>(sql, new { id });
@@ -55,6 +55,23 @@ public class OrderRepository : IOrderRepository
                         WHERE id = @Id AND paid_at IS NULL
                         RETURNING id as Id, item_id as ItemId, user_id as UserId,
                         created_at as CreatedAt, paid_at as PaidAt";
+
+        var queryObject = new
+        {
+            Id = id,
+            Date = date
+        };
+
+        return await _connection.QuerySingleOrDefaultAsync<OrderEntity>(sql, queryObject);
+    }
+
+    public async Task<OrderEntity?> SetAsCompleted(int id, DateTime date)
+    {
+        string sql = @"UPDATE orders
+                        SET completed_at = @Date
+                        WHERE id = @Id AND completed_at IS NULL
+                        RETURNING id as Id, item_id as ItemId, user_id as UserId,
+                        created_at as CreatedAt, paid_at as PaidAt, completed_at as CompletedAt";
 
         var queryObject = new
         {

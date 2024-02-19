@@ -61,37 +61,39 @@ public class OrderService
         return response;
     }
 
-    //public async Task<OrderCompletedResponse> SetAsCompleted(int id)
-    //{
-    //    await Get(id);
+    public async Task<OrderCompletedResponse> SetAsCompleted(int id)
+    {
+        var order = await Get(id);
+        _ = order.PaidAt ?? throw new UnpaidOrderException();
 
-    //    OrderEntity? result = await _orderRepository.SetAsCompleted(id, DateTime.Now)
-    //        ?? throw new CompletionWriteException();
+        OrderEntity? result = await _orderRepository.SetAsCompleted(id, DateTime.Now)
+            ?? throw new CompletionWriteException();
 
-    //    OrderCompletedResponse response = new OrderCompletedResponse()
-    //    {
-    //        Id = result.Id,
-    //        ItemId = result.ItemId,
-    //        UserId = result.UserId,
-    //        CreatedAt = result.CreatedAt,
-    //        PaidAt = result.PaidAt,
-    //        CompletedAt = result.CompletedAt
-    //    };
+        OrderCompletedResponse response = new OrderCompletedResponse()
+        {
+            Id = result.Id,
+            ItemId = result.ItemId,
+            UserId = result.UserId,
+            CreatedAt = result.CreatedAt,
+            PaidAt = result.PaidAt,
+            CompletedAt = result.CompletedAt
+        };
 
-    //    return response;
-    //}
+        return response;
+    }
 
-    public async Task<InsertOrderResponse> Get(int id)
+    public async Task<OrderPaidResponse> Get(int id)
     {
         OrderEntity? order = await _orderRepository.Get(id)
            ?? throw new OrderNotFoundException();
 
-        InsertOrderResponse response = new InsertOrderResponse()
+        OrderPaidResponse response = new OrderPaidResponse()
         {
             Id = order.Id,
             ItemId = order.ItemId,
             UserId = order.UserId,
-            CreatedAt = order.CreatedAt
+            CreatedAt = order.CreatedAt,
+            PaidAt = order.PaidAt
         };
 
         return response;

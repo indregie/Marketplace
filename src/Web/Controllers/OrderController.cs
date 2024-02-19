@@ -75,7 +75,7 @@ public class OrderController : ControllerBase
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> SetOrderAsCompleted(int id)
     {
-        return Ok(/*await _orderService.SetAsCompleted(id)*/);
+        return Ok(await _orderService.SetAsCompleted(id));
     }
 
 }
