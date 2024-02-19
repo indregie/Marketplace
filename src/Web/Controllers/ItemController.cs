@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Web.Controllers;
 
 /// <summary>
-/// Represents the API for managing items in the marketplace.
+/// Represents the API functionality for managing items in the marketplace.
 /// </summary>
 [ApiController]
 public class ItemController : ControllerBase

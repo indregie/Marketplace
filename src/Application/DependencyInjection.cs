@@ -11,6 +11,8 @@ public static class DependencyInjection
         services.AddScoped<RateService>();
         services.AddScoped<MovieService>();
         services.AddScoped<CommentService>();
+
         services.AddScoped<ItemService>();
+        services.AddScoped<UserService>();
     }
 }
