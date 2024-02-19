@@ -7,5 +7,5 @@ public class OrderCompletedResponse
     public int UserId { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? PaidAt { get; set; }
-    public DateTime CompletedAt { get; set; }
+    public DateTime? CompletedAt { get; set; }
 }

@@ -48,13 +48,13 @@ public class OrderRepository : IOrderRepository
         return await _connection.QuerySingleOrDefaultAsync<OrderEntity>(sql, new { id });
     }
 
-    public async Task<OrderEntity> SetAsPaid(int id, DateTime date)
+    public async Task<OrderEntity?> SetAsPaid(int id, DateTime date)
     {
         string sql = @"UPDATE orders
                         SET paid_at = @Date
-                        WHERE id = @Id
+                        WHERE id = @Id AND paid_at IS NULL
                         RETURNING id as Id, item_id as ItemId, user_id as UserId,
-                        created_at as CreatedAt";
+                        created_at as CreatedAt, paid_at as PaidAt";
 
         var queryObject = new
         {
@@ -62,7 +62,7 @@ public class OrderRepository : IOrderRepository
             Date = date
         };
 
-        return await _connection.QuerySingleAsync<OrderEntity>(sql, queryObject);
+        return await _connection.QuerySingleOrDefaultAsync<OrderEntity>(sql, queryObject);
     }
 }
 

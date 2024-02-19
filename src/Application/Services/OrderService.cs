@@ -46,7 +46,8 @@ public class OrderService
     {
         await Get(id);
 
-        OrderEntity result = await _orderRepository.SetAsPaid(id, DateTime.Now);
+        OrderEntity? result = await _orderRepository.SetAsPaid(id, DateTime.Now)
+            ?? throw new PaymentWriteException();
 
         OrderPaidResponse response = new OrderPaidResponse()
         {
@@ -59,6 +60,26 @@ public class OrderService
 
         return response;
     }
+
+    //public async Task<OrderCompletedResponse> SetAsCompleted(int id)
+    //{
+    //    await Get(id);
+
+    //    OrderEntity? result = await _orderRepository.SetAsCompleted(id, DateTime.Now)
+    //        ?? throw new CompletionWriteException();
+
+    //    OrderCompletedResponse response = new OrderCompletedResponse()
+    //    {
+    //        Id = result.Id,
+    //        ItemId = result.ItemId,
+    //        UserId = result.UserId,
+    //        CreatedAt = result.CreatedAt,
+    //        PaidAt = result.PaidAt,
+    //        CompletedAt = result.CompletedAt
+    //    };
+
+    //    return response;
+    //}
 
     public async Task<InsertOrderResponse> Get(int id)
     {
@@ -75,4 +96,5 @@ public class OrderService
 
         return response;
     }
+
 }

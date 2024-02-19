@@ -43,7 +43,7 @@ public class ErrorHandlerMiddleware
                 case InvalidNameException e:
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
-                case InvalidRateException e:
+                case PaymentWriteException e:
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
                 default:
