@@ -3,7 +3,6 @@ using Domain.Dtos.Response;
 using Domain.Entities;
 using Domain.Exceptions;
 using Domain.Interfaces;
-using Infrastructure.Repositories;
 
 namespace Application.Services;
 

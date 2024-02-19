@@ -1,6 +1,6 @@
 ﻿namespace Domain.Dtos.Request;
 
-public class InsertMovieRequest
+public class InsertOrderRequest
 {
     public string Name { get; set; } = string.Empty;
 }

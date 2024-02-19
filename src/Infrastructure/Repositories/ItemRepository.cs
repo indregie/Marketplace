@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Domain.Entities;
+using Domain.Interfaces;
 using System.Data;
 
 namespace Infrastructure.Repositories;

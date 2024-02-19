@@ -1,10 +1,9 @@
 ﻿using Domain.Entities;
 
-namespace Infrastructure.Repositories
+namespace Domain.Interfaces;
+
+public interface IItemRepository
 {
-    public interface IItemRepository
-    {
-        Task<IEnumerable<ItemEntity>> Get();
-        Task<ItemEntity> Insert(ItemEntity item);
-    }
+    Task<IEnumerable<ItemEntity>> Get();
+    Task<ItemEntity> Insert(ItemEntity item);
 }

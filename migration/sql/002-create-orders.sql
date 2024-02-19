@@ -10,8 +10,8 @@ CREATE TABLE orders (
     item_id INT NOT NULL REFERENCES items(id),
     user_id INT NOT NULL,
     created_at TIMESTAMP NOT NULL,
-    is_paid BOOLEAN,
-    is_completed BOOLEAN
+    is_paid TIMESTAMP,
+    is_completed TIMESTAMP
 );
 
 -- rollback DROP TABLE IF EXISTS orders;

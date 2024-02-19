@@ -1,9 +1,8 @@
 ﻿using Domain.Entities;
 
-namespace Infrastructure.Clients
+namespace Domain.Interfaces;
+
+public interface IUserClient
 {
-    public interface IUserClient
-    {
-        Task<IEnumerable<UserEntity>> Get();
-    }
+    Task<IEnumerable<UserEntity>> Get();
 }
