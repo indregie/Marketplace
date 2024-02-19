@@ -82,5 +82,14 @@ public class OrderRepository : IOrderRepository
 
         return await _connection.QueryAsync<OrderEntity>(sql, new { userId });
     }
+
+    public async Task CleanUp(DateTime date)
+    {
+        string sql = @"DELETE FROM orders
+                        WHERE paid_at IS NULL 
+                        AND created_at < @Date - interval '2 hours'";
+
+        await _connection.ExecuteAsync(sql, new { date });
+    }
 }
 

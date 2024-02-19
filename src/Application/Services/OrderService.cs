@@ -117,4 +117,9 @@ public class OrderService
 
         return response;
     }
+
+    public async Task CleanUp(DateTime date)
+    {
+        await _orderRepository.CleanUp(date);
+    }
 }
