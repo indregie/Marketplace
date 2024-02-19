@@ -1,5 +1,4 @@
-﻿using Domain.Dtos.Response;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Exceptions;
 using Domain.Interfaces;
 
@@ -22,7 +21,7 @@ public class UserService
     public async Task<UserEntity> Get(int id)
     {
         IEnumerable<UserEntity> users = await _client.Get();
-        UserEntity user = users.SingleOrDefault(x => x.Id == id) 
+        UserEntity user = users.SingleOrDefault(x => x.Id == id)
             ?? throw new UserNotFoundException();
         return user;
     }

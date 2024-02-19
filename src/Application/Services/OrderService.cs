@@ -65,7 +65,7 @@ public class OrderService
     {
         var order = await Get(id);
 
-        _ = order.PaidAt 
+        _ = order.PaidAt
             ?? throw new UnpaidOrderException();
 
         OrderEntity? result = await _orderRepository.SetAsCompleted(id, DateTime.Now)

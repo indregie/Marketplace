@@ -1,11 +1,3 @@
-using Application.Services;
-using AutoFixture;
-using AutoFixture.Xunit2;
-using Domain.Dtos.Response;
-using Domain.Entities;
-using Domain.Interfaces;
-using Moq;
-
 namespace UnitTests.Services;
 
 public class RateServiceTests

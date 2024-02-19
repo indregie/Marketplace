@@ -1,5 +1,4 @@
 ﻿using Application.Services;
-using Domain.Dtos.Response;
 using Domain.Entities;
 using Infrastructure.Errors;
 using Microsoft.AspNetCore.Mvc;

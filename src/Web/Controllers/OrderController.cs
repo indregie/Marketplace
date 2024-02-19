@@ -1,7 +1,6 @@
 ﻿using Application.Services;
 using Domain.Dtos.Request;
 using Domain.Dtos.Response;
-using Domain.Entities;
 using Infrastructure.Errors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -73,7 +72,7 @@ public class OrderController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<UserOrdersResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Get([FromQuery]int userId)
+    public async Task<IActionResult> Get([FromQuery] int userId)
     {
         return Ok(await _orderService.GetOrders(userId));
     }

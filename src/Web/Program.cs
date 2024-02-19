@@ -1,6 +1,5 @@
 using Application;
 using Infrastructure;
-using Infrastructure.Repositories;
 using Microsoft.OpenApi.Models;
 using Npgsql;
 using System.Data;

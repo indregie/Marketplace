@@ -9,8 +9,6 @@ services:
     ports:
       - "2999:8080"
       - "2998:8081"
-    # networks:
-    #   - my-network
   postgres:
     image: postgres:latest
     environment:
@@ -19,8 +17,6 @@ services:
       POSTGRES_PASSWORD: admin
     ports:
       - "5437:5432"
-    # networks:
-    #   - my-network
   liquibase:
     image: liquibase/liquibase:latest
     volumes:
@@ -33,8 +29,3 @@ services:
       - --username=admin
       - --password=admin
       - update
-#     networks:
-#       - my-network
-
-# networks:
-#   my-network:
