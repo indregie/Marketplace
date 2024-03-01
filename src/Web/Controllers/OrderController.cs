@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application.Interfaces;
+using Application.Services;
 using Domain.Dtos.Request;
 using Domain.Dtos.Response;
 using Infrastructure.Errors;
@@ -12,11 +13,11 @@ namespace Web.Controllers;
 [ApiController]
 public class OrderController : ControllerBase
 {
-    private OrderService _orderService;
+    private IOrderService _orderService;
     /// <summary>
     /// Controller for managing marketplace users.
     /// </summary>
-    public OrderController(OrderService orderService)
+    public OrderController(IOrderService orderService)
     {
         _orderService = orderService;
     }

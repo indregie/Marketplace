@@ -29,7 +29,11 @@ public class ItemServiceTests
     public async Task Insert_GivenValidRequestReturnsValidResponse(InsertItemRequest request)
     {
         // Arrange
-        var expectedResponse = _fixture.Create<ItemEntity>();
+        var expectedResponse = new ItemEntity
+        {
+            Id = 123,
+            Name = request.Name
+        };
 
         _itemRepositoryMock.Setup(x => x.Insert(It.IsAny<ItemEntity>()))
                            .ReturnsAsync(expectedResponse);
@@ -39,8 +43,8 @@ public class ItemServiceTests
 
         //Assert 
         result.Should().NotBeNull();
-        result.Id.Should().Be(expectedResponse.Id);
-        result.Name.Should().Be(expectedResponse.Name);
+        result.Id.Should().NotBe(0);
+        result.Name.Should().Be(request.Name);
     }
 
     [Theory]

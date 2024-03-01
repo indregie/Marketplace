@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application.Interfaces;
+using Application.Services;
 using Domain.Dtos.Request;
 using Domain.Dtos.Response;
 using Infrastructure.Errors;
@@ -12,11 +13,11 @@ namespace Web.Controllers;
 [ApiController]
 public class ItemController : ControllerBase
 {
-    private ItemService _itemService;
+    private IItemService _itemService;
     /// <summary>
     /// Controller for managing items.
     /// </summary>
-    public ItemController(ItemService itemService)
+    public ItemController(IItemService itemService)
     {
         _itemService = itemService;
     }

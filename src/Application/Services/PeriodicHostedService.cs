@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Application.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Application.Services;
@@ -23,7 +24,7 @@ public class PeriodicHostedService : BackgroundService
             {
                 try
                 {
-                    OrderService _orderService = scope.ServiceProvider.GetRequiredService<OrderService>();
+                    IOrderService _orderService = scope.ServiceProvider.GetRequiredService<IOrderService>();
                     DateTime date = DateTime.Now;
                     await _orderService.CleanUp(date);
                     await Console.Out.WriteLineAsync($"Cleanup done at {date}");

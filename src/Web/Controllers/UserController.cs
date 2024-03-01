@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application.Interfaces;
+using Application.Services;
 using Domain.Entities;
 using Infrastructure.Errors;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,11 @@ namespace Web.Controllers;
 [ApiController]
 public class UserController : ControllerBase
 {
-    private UserService _userService;
+    private IUserService _userService;
     /// <summary>
     /// Controller for managing marketplace users.
     /// </summary>
-    public UserController(UserService userService)
+    public UserController(IUserService userService)
     {
         _userService = userService;
     }
